@@ -9,6 +9,5 @@ otp_release:
   - 21.0
 
 script:
-  - make build
-  - make push
+  - ./build.sh
 
