@@ -1,4 +1,4 @@
-language: bash
+language: erlang
 
 sudo: required
 
@@ -8,6 +8,13 @@ services:
 otp_release:
   - 21.0
 
+env:
+  secure: "sYQ6NuxO/y6mho0ALOMckcr3J3HsAmB5lgDDi3w6WJNWDeKkLXi8LrpHctC4RwoUKYE6zZ2eDHgPyOJAcqrPj1z1CagmKrBdWr4Kup5RsZbdlPuh0LKgxOGpJiSZVIqMjklKL94x/hkVaCWi30UyVC7EPJCuO5qtP2Nqa/KuIv3rro+lq+ESHF6yFvkMlr3ng1S2MxTo67JIhQdLB5Rjh1CVUJ1ThiTMHFHEGbA7+/rncpNZ98D1JA2UaKZx5+psnhAR6YoE8MOK6Jz2CPDY0nsXHKl4yodHH2DBS1h+mgvRxH0/iaPEy17VE1Ir0UvDKjyw25p/BYM3ym55j4nWSuYNZcu42Q1US8spMTDvqYo4BokGX5poYe+l1zsh30GtBU+pzxciQ6i0JojtEiKeqKfoM0BPEtcT+peBvLhB1xr3eJL8TY8dcLBbQh/Vl2ZNq6EPRwYNuNOLg5Hilk7YIafS4FZ8pZfhgVVgd4uEPGt8tMX4Pg98iVdUWkEMgzjNFCefqfUhZkB2RbOdB8Vih/mp4M74z1nlBQHDLIzpnlHGHmxQmnZbdde3vi6pJmDutDUUIIj//4XSWfy731LUCLtRxd+5Lma5IGL5H33V75+nCxR3l7WTrFwvhq4ZqgCTwRMvsMEt0PzZCR0VPypWPw8k1drgNqGPl6gnLw6Z9Ls="
+
 script:
-  - ./build.sh
+  - |
+    if [ "$TRAVIS_BRANCH" = "master" ]; then
+      echo "$DOCKER_PASSWORD" | docker login -u zmstone --password-stdin
+      ./build-and-push.sh
+    fi
 
