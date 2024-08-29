@@ -1,9 +1,9 @@
-FROM erlang:23-alpine as builder
+FROM erlang:26-alpine as builder
 ARG GIT_TAG=master
 
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git g++ make
-RUN git clone -b ${GIT_TAG} https://github.com/klarna/brod.git /brod
+RUN git clone -b ${GIT_TAG} https://github.com/kafka4beam/brod.git /brod
 WORKDIR /brod
 RUN make brod-cli
 

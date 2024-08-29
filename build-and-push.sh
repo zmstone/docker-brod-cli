@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [ ! -d brod ]; then
-  git clone https://github.com/klarna/brod.git
+  git clone https://github.com/kafka4beam/brod.git
 fi
 cd brod
 GIT_DESC=$(git describe --tag)
@@ -18,6 +18,9 @@ LIB=zmstone
 
 docker build --build-arg GIT_TAG="${GIT_DESC}" -t "$LIB/brod:$VSN" .
 docker tag "$LIB/brod:$VSN" "$LIB/brod:latest"
+
+docker run --rm "$LIB/brod:latest" brod -h
+echo "OK"
 
 docker push "$LIB/brod:$VSN"
 docker push "$LIB/brod:latest"
